@@ -1,0 +1,41 @@
+@import "../../styles/global";
+.header {
+    background-color: $color-2;
+    font-weight: 400;
+    border-bottom: 2px solid $color-4;
+    @media screen and (max-width: 1024px) {
+        padding: 20px;
+    }
+    nav {
+        max-width: 1080px;
+        margin: 0 auto;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        svg {
+            background-color: white;
+            border-radius: 25px;
+            padding: 5px;
+            width: 50px;
+        }
+        ul {
+            display: flex;
+            list-style: none;
+            padding: 20px 0;
+            gap: 10px;
+            font-size: 1.5rem;
+            li {
+                color: white;
+                cursor: pointer;
+                a {
+                    color: white;
+                    text-decoration: none;
+                    padding: 2px;
+                    &:hover {
+                        border-bottom: 2px solid $color-4;
+                    }
+                }
+            }
+        }
+    }
+}
