@@ -1,8 +1,5 @@
 import ImageCard from "@/components/imageCard";
-
-export default function AstronomyPicture({ data }) {
-    return <>{<ImageCard data={data}></ImageCard>}</>;
-}
+import Search from "@/components/search";
 
 export async function getServerSideProps({ params }) {
     const data = await fetch(
@@ -15,4 +12,14 @@ export async function getServerSideProps({ params }) {
             data: nasa,
         },
     };
+}
+
+export default function AstronomyPicture({ data }) {
+    return (
+        <>
+            <ImageCard data={data}>
+                <Search />
+            </ImageCard>
+        </>
+    );
 }
