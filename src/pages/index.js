@@ -11,6 +11,7 @@ export default function Today({ nasa }) {
     return (
         <>
             <ImageCard data={nasa}>
+                
                 <h1>
                     A different image or photograph of our fascinating universe
                     is featured, along with a brief explanation written by a

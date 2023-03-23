@@ -1,4 +1,4 @@
-import Calendar from "@/components/calendar";
+import NewCalendar from "@/components/newCalendar";
 
 export async function getServerSideProps(context) {
     const data = context.params;
@@ -6,11 +6,14 @@ export async function getServerSideProps(context) {
     const [currentYear, currentMonth] = data.month.split("-");
 
     const currentDate = new Date();
+    const month = currentDate.getMonth() + 1;
 
     const startDate = `${currentYear}-${currentMonth}-01`;
 
     const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
-    const lastDay = Math.min(currentDate.getDate(), lastDayOfMonth);
+
+    const lastDay =
+        month === +currentMonth ? currentDate.getDate() : lastDayOfMonth;
 
     const endDate = `${currentYear}-${currentMonth}-${lastDay}`;
 
@@ -24,17 +27,16 @@ export async function getServerSideProps(context) {
             dataMonth,
             currentYear,
             currentMonth,
-            data,
         },
     };
 }
 export default function MonthPage({ dataMonth, currentYear, currentMonth }) {
     return (
         <>
-            <Calendar
-                currentYear={currentYear}
-                currentMonth={currentMonth}
-                events={dataMonth}
+            <NewCalendar
+                year={currentYear}
+                month={currentMonth}
+                imageUrl={dataMonth}
             />
         </>
     );

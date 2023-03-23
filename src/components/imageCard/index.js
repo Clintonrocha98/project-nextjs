@@ -24,7 +24,7 @@ export default function ImageCard({ data, children }) {
                             />
                         )}
                         <div className={styles.warrapDescription}>
-                            <h2>{data.date.replace(/-/g, "/")}</h2>
+                            <h2>{data.date?.replace(/-/g, "/")}</h2>
                             <h2>{data.title}</h2>
                             <p>{data.explanation}</p>
                             <br />

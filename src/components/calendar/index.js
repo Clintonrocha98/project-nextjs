@@ -1,17 +1,18 @@
-import { useMemo } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import { useMemo, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 import styles from "./styles.module.scss";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 
 export default function Calendar({ events, currentMonth, currentYear }) {
+    const calendarRef = useRef(null);
     const eventsAPI = useMemo(() => {
         return {
             events: events.map((event) => ({
                 title: event.title,
-                start: event.date,
+                date: event.date,
                 end: event.date,
                 imageUrl: event.url,
                 type: event.media_type,
@@ -20,10 +21,18 @@ export default function Calendar({ events, currentMonth, currentYear }) {
     }, [events]);
 
     const eventContent = (eventInfo) => {
+        const date = new Date(eventInfo.event.start);
+
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate();
+
+        const result = `${year}-${month}-${day}`;
+
         const mediaContent =
             eventInfo.event.extendedProps.imageUrl &&
             eventInfo.event.extendedProps.type === "image" ? (
-                <Link href={`/calendar/${eventInfo.event.start}`}>
+                <Link href={`/${result}`} key={eventInfo.event.title}>
                     <img
                         src={eventInfo.event.extendedProps.imageUrl}
                         alt={eventInfo.event.title}
@@ -32,7 +41,7 @@ export default function Calendar({ events, currentMonth, currentYear }) {
                 </Link>
             ) : eventInfo.event.extendedProps.imageUrl &&
               eventInfo.event.extendedProps.type === "video" ? (
-                <Link href={`/calendar/${eventInfo.event.start}`}>
+                <Link href={`/${result}`} key={eventInfo.event.title}>
                     <iframe
                         src={eventInfo.event.extendedProps.imageUrl}
                         alt={eventInfo.event.title}
@@ -46,8 +55,10 @@ export default function Calendar({ events, currentMonth, currentYear }) {
 
         return mediaContent;
     };
+
     const router = useRouter();
     const month = new Date().getMonth() + 1;
+
     const months = [
         "January",
         "February",
@@ -75,7 +86,7 @@ export default function Calendar({ events, currentMonth, currentYear }) {
         if (currentMonth === 12) {
             router.push(`/calendar/${currentYear + 1}-1`);
         } else {
-            router.push(`/calendar/${currentYear}-${currentMonth + 1}`);
+            router.push(`/calendar/${currentYear}-${+currentMonth + 1}`);
         }
     }
 
@@ -93,13 +104,14 @@ export default function Calendar({ events, currentMonth, currentYear }) {
                         <button onClick={previousMonth}>anterior</button>
                         <button
                             onClick={nextMonth}
-                            disabled={month === currentMonth}
+                            disabled={month == currentMonth}
                         >
                             proximo
                         </button>
                     </div>
                 </div>
                 <FullCalendar
+                    ref={calendarRef}
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"
                     events={eventsAPI}

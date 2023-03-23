@@ -1,0 +1,17 @@
+.containerCalendar {
+    max-width: 1080px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 20px 0 20px 0;
+    td {
+        padding: 5px;
+        a {
+            img {
+                width: 100%;
+            }
+        }
+        iframe {
+            width: 100%;
+        }
+    }
+}
