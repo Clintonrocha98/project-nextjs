@@ -119,7 +119,7 @@ export default function NewCalendar({ year, month, imageUrl }) {
     ];
 
     function previousMonth() {
-        if (month === 1) {
+        if (month == 1) {
             router.push(`/calendar/${year - 1}-12`);
         } else {
             router.push(`/calendar/${year}-${month - 1}`);
@@ -127,13 +127,12 @@ export default function NewCalendar({ year, month, imageUrl }) {
     }
 
     function nextMonth() {
-        if (month === 12) {
+        if (month == 12) {
             router.push(`/calendar/${year + 1}-1`);
         } else {
             router.push(`/calendar/${year}-${+month + 1}`);
         }
     }
-
     return (
         <>
             <SEO
@@ -143,50 +142,47 @@ export default function NewCalendar({ year, month, imageUrl }) {
                 } with the astronomical images of each day  `}
             />
             <section className={styles.containerCalendar}>
-                <div>
-                    <div>
-                        <h1>{`${months[month - 1]}/${year}`}</h1>
-                        <div>
-                            <button onClick={previousMonth}>anterior</button>
-                            <button
-                                onClick={nextMonth}
-                                disabled={currentMonth == month}
-                            >
-                                proximo
-                            </button>
-                        </div>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((week, weekIndex) => (
-                                <tr key={weekIndex}>
-                                    {week.map((day, dayIndex) => (
-                                        <DayCell
-                                            key={`${weekIndex}-${dayIndex}`}
-                                            weekIndex={weekIndex}
-                                            dayIndex={dayIndex}
-                                            imageUrl={imageUrls}
-                                            apiDate={apiDate}
-                                            apiTitle={apiTitle}
-                                            apiType={apiType}
-                                        />
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className={styles.containerButton}>
+                    <button onClick={previousMonth}>Previous month</button>
+                    <h1>{`${months[month - 1]} / ${year}`}</h1>
+                    <button
+                        onClick={nextMonth}
+                        disabled={currentMonth == month}
+                    >
+                        Next month
+                    </button>
                 </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((week, weekIndex) => (
+                            <tr key={weekIndex}>
+                                {week.map((day, dayIndex) => (
+                                    <DayCell
+                                        key={`${weekIndex}-${dayIndex}`}
+                                        weekIndex={weekIndex}
+                                        dayIndex={dayIndex}
+                                        imageUrl={imageUrls}
+                                        apiDate={apiDate}
+                                        apiTitle={apiTitle}
+                                        apiType={apiType}
+                                    />
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </section>
         </>
     );

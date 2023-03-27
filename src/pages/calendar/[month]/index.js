@@ -30,6 +30,7 @@ export async function getServerSideProps(context) {
         },
     };
 }
+
 export default function MonthPage({ dataMonth, currentYear, currentMonth }) {
     return (
         <>

@@ -3,8 +3,32 @@
     margin-top: auto;
     display: flex;
     justify-content: center;
-    padding: 20px;
-    color: white;
+    padding: 10px;
+    color: $font-color;
     background-color: $color-2;
     border-top: 2px solid $color-4;
+    a {
+        text-decoration: none;
+        color: inherit;
+        font-weight: 700;
+        animation: color-change-5x 8s linear infinite alternate both;
+    }
+}
+
+@keyframes color-change-5x {
+    0% {
+        color: #19dcea;
+    }
+    25% {
+        color: #b22cff;
+    }
+    50% {
+        color: #ea2222;
+    }
+    75% {
+        color: #f5be10;
+    }
+    100% {
+        color: #3bd80d;
+    }
 }

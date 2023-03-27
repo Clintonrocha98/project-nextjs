@@ -1,28 +1,44 @@
+@import "../../styles/global";
+
 .today {
     max-width: 1080px;
     margin: 0 auto;
     width: 100%;
+    color: $font-color;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
     @media screen and (max-width: 1024px) {
         padding: 20px;
     }
+
     h1 {
         text-align: center;
         font-size: 1.5rem;
-        margin: 20px 0 20px 0;
+
+        background-color: $color-2;
+        padding: 5px;
+        border-radius: 10px 10px 0 0;
     }
 
-    color: white;
     .containerToday {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
         justify-items: center;
         align-items: center;
+
+        background-color: $color-2;
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+
         img {
             max-width: 500px;
         }
+
         @media screen and (max-width: 768px) {
             grid-template-columns: 1fr;
+
             img {
                 width: 100%;
                 margin: 0 auto;
@@ -30,9 +46,11 @@
             }
         }
         .warrapDescription {
+
             h2 {
                 font-size: 1.5rem;
                 margin-bottom: 10px;
+                
                 @media screen and (max-width: 768px) {
                     text-align: center;
                 }

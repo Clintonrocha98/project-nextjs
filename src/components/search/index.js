@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import styles from "./styles.module.scss";
+
 export default function Search() {
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(null);
     const router = useRouter();
 
     function handleDateChange({ target }) {
@@ -10,13 +12,16 @@ export default function Search() {
     }
 
     function handleSearch() {
-        router.push(`/${date}`);
+        date && router.push(`/${date}`);
     }
 
     return (
-        <>
-            <input type="date" value={date} onChange={handleDateChange} />
-            <button onClick={handleSearch}>Search</button>
-        </>
+        <div className={styles.containerSearch}>
+            <h2>Current date through June 16, 1995</h2>
+            <div>
+                <input type="date" value={date} onChange={handleDateChange} />
+                <button onClick={handleSearch}>Search</button>
+            </div>
+        </div>
     );
 }
