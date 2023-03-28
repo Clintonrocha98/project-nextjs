@@ -1,5 +1,5 @@
 import ImageCard from "@/components/imageCard";
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const data = await fetch(
         `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_KEY}`
     );

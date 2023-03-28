@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import SEO from "../SEO";
 import styles from "./styles.module.scss";
@@ -6,7 +7,7 @@ import styles from "./styles.module.scss";
 function createCalendarData(year, month, imageUrl) {
     const daysInMonth = new Date(year, month, 0).getDate();
     const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
-    const currentDate = new Date().getDate();
+    const currentDate = new Date(year, month, 0).getDate();
 
     const data = [];
     const imageUrls = [];
@@ -32,13 +33,15 @@ function createCalendarData(year, month, imageUrl) {
                 type.push(null);
             } else {
                 week.push(day);
-                weekUrls.push(day > currentDate ? "" : imageUrl[day - 1].url);
-                dateImage.push(day > currentDate ? "" : imageUrl[day - 1].date);
+                weekUrls.push(day > currentDate ? "" : imageUrl[day - 1]?.url);
+                dateImage.push(
+                    day > currentDate ? "" : imageUrl[day - 1]?.date
+                );
                 titleImage.push(
-                    day > currentDate ? "" : imageUrl[day - 1].title
+                    day > currentDate ? "" : imageUrl[day - 1]?.title
                 );
                 type.push(
-                    day > currentDate ? "" : imageUrl[day - 1].media_type
+                    day > currentDate ? "" : imageUrl[day - 1]?.media_type
                 );
                 day++;
             }
@@ -74,13 +77,18 @@ function DayCell({
                 href={`/${apiDate[weekIndex][dayIndex]}`}
                 key={apiTitle[weekIndex][dayIndex]}
             >
-                <img
+                <Image
                     src={imageUrl[weekIndex][dayIndex]}
                     title={`date: ${apiDate[weekIndex][dayIndex]} - ${apiTitle[weekIndex][dayIndex]}`}
+                    alt={apiTitle[weekIndex][dayIndex]}
+                    width={150}
+                    loading="eager"
+                    height={200}
                 />
             </Link>
         ) : (
             <iframe
+                loading="lazy"
                 src={imageUrl[weekIndex][dayIndex]}
                 alt={apiTitle[weekIndex][dayIndex]}
                 title={`date: ${apiDate[weekIndex][dayIndex]} - ${apiTitle[weekIndex][dayIndex]}`}
@@ -120,19 +128,20 @@ export default function NewCalendar({ year, month, imageUrl }) {
 
     function previousMonth() {
         if (month == 1) {
-            router.push(`/calendar/${year - 1}-12`);
+            router.push(`/calendar/${Number(year) - 1}-12`);
         } else {
-            router.push(`/calendar/${year}-${month - 1}`);
+            router.push(`/calendar/${year}-${Number(month) - 1}`);
         }
     }
 
     function nextMonth() {
         if (month == 12) {
-            router.push(`/calendar/${year + 1}-1`);
+            router.push(`/calendar/${Number(year) + 1}-1`);
         } else {
-            router.push(`/calendar/${year}-${+month + 1}`);
+            router.push(`/calendar/${year}-${Number(month) + 1}`);
         }
     }
+    
     return (
         <>
             <SEO

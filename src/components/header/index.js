@@ -5,15 +5,17 @@ export default function Header() {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
 
-    const currentDate = `${currentYear}-${currentMonth}-01`;
+    const currentDate = `${currentYear}-${currentMonth}`;
     return (
         <>
             <header className={styles.header}>
                 <nav>
-                    <Link href="/">
-                        <LogoIcon />
-                    </Link>
+                    <LogoIcon />
+
                     <ul>
+                        <li>
+                            <Link href="/">Home</Link>
+                        </li>
                         <li>
                             <Link href="/search">Search</Link>
                         </li>

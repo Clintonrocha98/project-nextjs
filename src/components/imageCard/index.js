@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./styles.module.scss";
 
 export default function ImageCard({ data, children }) {
@@ -8,11 +9,14 @@ export default function ImageCard({ data, children }) {
                 {data && (
                     <div className={styles.containerToday}>
                         {data.media_type === "image" && (
-                            <img
+                            <Image
                                 src={data.url}
                                 alt={data.title}
                                 key={data.date}
                                 title={data.title}
+                                loading="eager"
+                                width={500}
+                                height={500}
                             />
                         )}
                         {data.media_type === "video" && (

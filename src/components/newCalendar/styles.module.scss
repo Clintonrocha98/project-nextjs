@@ -34,6 +34,14 @@
                 box-shadow: -5px 5px $color-4;
             }
         }
+        @media screen and (max-width: 425px) {
+            h1 {
+                font-size: 1.1rem;
+            }
+            button {
+                font-size: 1rem;
+            }
+        }
     }
 
     table {
